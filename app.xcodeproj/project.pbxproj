@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E1CA0C02DA0410A00E304E3 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CA0BF2DA0410A00E304E3 /* SessionManager.swift */; };
 		8EEF33772DA01CC800E9DD0B /* appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF33762DA01CC800E9DD0B /* appApp.swift */; };
 		8EEF33792DA01CC800E9DD0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF33782DA01CC800E9DD0B /* ContentView.swift */; };
 		8EEF337B2DA01CC900E9DD0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EEF337A2DA01CC900E9DD0B /* Assets.xcassets */; };
@@ -14,6 +15,8 @@
 		8EEF33882DA01CC900E9DD0B /* appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF33872DA01CC900E9DD0B /* appTests.swift */; };
 		8EEF33922DA01CC900E9DD0B /* appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF33912DA01CC900E9DD0B /* appUITests.swift */; };
 		8EEF33942DA01CC900E9DD0B /* appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF33932DA01CC900E9DD0B /* appUITestsLaunchTests.swift */; };
+		8EEF33A22DA01D3300E9DD0B /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF33A12DA01D3300E9DD0B /* APIService.swift */; };
+		8EEF33A52DA01D4A00E9DD0B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF33A42DA01D4A00E9DD0B /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E1CA0BF2DA0410A00E304E3 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		8EEF33732DA01CC800E9DD0B /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EEF33762DA01CC800E9DD0B /* appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appApp.swift; sourceTree = "<group>"; };
 		8EEF33782DA01CC800E9DD0B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +48,8 @@
 		8EEF338D2DA01CC900E9DD0B /* appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = appUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EEF33912DA01CC900E9DD0B /* appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appUITests.swift; sourceTree = "<group>"; };
 		8EEF33932DA01CC900E9DD0B /* appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8EEF33A12DA01D3300E9DD0B /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		8EEF33A42DA01D4A00E9DD0B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E1CA0BE2DA040FF00E304E3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8E1CA0BF2DA0410A00E304E3 /* SessionManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		8EEF336A2DA01CC800E9DD0B = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +108,9 @@
 		8EEF33752DA01CC800E9DD0B /* app */ = {
 			isa = PBXGroup;
 			children = (
+				8E1CA0BE2DA040FF00E304E3 /* Utils */,
+				8EEF33A32DA01D3E00E9DD0B /* Views */,
+				8EEF33A02DA01D2300E9DD0B /* Services */,
 				8EEF33762DA01CC800E9DD0B /* appApp.swift */,
 				8EEF33782DA01CC800E9DD0B /* ContentView.swift */,
 				8EEF337A2DA01CC900E9DD0B /* Assets.xcassets */,
@@ -125,6 +142,22 @@
 				8EEF33932DA01CC900E9DD0B /* appUITestsLaunchTests.swift */,
 			);
 			path = appUITests;
+			sourceTree = "<group>";
+		};
+		8EEF33A02DA01D2300E9DD0B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8EEF33A12DA01D3300E9DD0B /* APIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		8EEF33A32DA01D3E00E9DD0B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8EEF33A42DA01D4A00E9DD0B /* LoginView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +291,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EEF33792DA01CC800E9DD0B /* ContentView.swift in Sources */,
+				8EEF33A22DA01D3300E9DD0B /* APIService.swift in Sources */,
+				8EEF33A52DA01D4A00E9DD0B /* LoginView.swift in Sources */,
+				8E1CA0C02DA0410A00E304E3 /* SessionManager.swift in Sources */,
 				8EEF33772DA01CC800E9DD0B /* appApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +456,8 @@
 				DEVELOPMENT_TEAM = QHLTT4FZN6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "frii.site dashboard";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,6 +487,8 @@
 				DEVELOPMENT_TEAM = QHLTT4FZN6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "frii.site dashboard";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
