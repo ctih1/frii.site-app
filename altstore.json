@@ -2,7 +2,7 @@
     "name": "frii.site",
     "subtitle": "A source for the frii.site iOS app",
     "description": "Welcome to the official frii.site repo! You can find the frii.site mobile app from here.",
-    "iconURL": "http://www.frii.site/favicon.png",
+    "iconURL": "https://github.com/ctih1/frii.site-app/blob/main/app/Assets.xcassets/AppIcon.appiconset/icon%201.png?raw=true",
     "headerURL": "https://repository-images.githubusercontent.com/765252166/ea20ba11-9b83-457e-8db8-2481a83f5cb2",
     "website": "https://www.frii.site",
     "tintColor": "#007bff",
@@ -15,22 +15,33 @@
         "developerName": "Onni Nevala",
         "subtitle": "The official frii.site dashboard mobile app",
         "localizedDescription": "The official frii.site dashboard app for iOS, which lets you manage your domains directly from your iOS device!",
-        "iconURL": "https://example.com/myapp_icon.png",
+        "iconURL": "https://github.com/ctih1/frii.site-app/blob/main/app/Assets.xcassets/AppIcon.appiconset/icon%201.png?raw=true",
         "tintColor": "#F54F32",
         "category": "developer",
         "screenshots": [
             "https://github.com/ctih1/frii.site-app/blob/main/screenshots/login.png?raw=true",
             "https://github.com/ctih1/frii.site-app/blob/main/screenshots/dashboard.png?raw=true"
         ],
-        "versions": [{
-            "version": "0.01",
-            "buildVersion": "1",
-            "date": "2025-04-05",
-            "size": 268000,
-            "localizedDescription": "Initial release",
-            "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.01/frii-site-app.ipa",
-            "minOSVersion": "16.1"
-        }],
+        "versions": [
+            {
+                "version": "0.01",
+                "buildVersion": "1",
+                "date": "2025-04-05",
+                "size": 268000,
+                "localizedDescription": "Initial release",
+                "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.01/frii-site-app.ipa",
+                "minOSVersion": "16.1"
+            },
+            {
+                "version": "0.02",
+                "buildVersion": "2",
+                "date": "2025-04-05",
+                "size": 216000,
+                "localizedDescription": "Second release",
+                "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.02/frii-site-app.ipa",
+                "minOSVersion": "16.1"
+            }
+        ],
         "appPermissions": {
             "entitlements": [],
             "privacy": []
