@@ -18,7 +18,10 @@
         "iconURL": "https://example.com/myapp_icon.png",
         "tintColor": "#F54F32",
         "category": "developer",
-        "screenshots": [],
+        "screenshots": [
+            "https://github.com/ctih1/frii.site-app/blob/main/screenshots/login.png?raw=true",
+            "https://github.com/ctih1/frii.site-app/blob/main/screenshots/dashboard.png?raw=true"
+        ],
         "versions": [{
             "version": "0.01",
             "buildVersion": "8",
