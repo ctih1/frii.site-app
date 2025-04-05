@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var username: String = "";
-    @State private var password: String = "";
+    @State private var username: String = ""
+    @State private var password: String = ""
     @State private var buttonText: String = "Login"
-    @State private var passwordShown: Bool = false;
-    
+    @State private var passwordShown: Bool = false
+    @State private var warningMessageShown: Bool = false
+    @State private var warningMessage: String = ""
+
     var body: some View {
         NavigationStack {
             VStack(alignment:.leading) {
                 Text("Sign into your frii.site account.")
                 
                 Spacer().frame(height: 50)
-                
+                if warningMessageShown {
+                    Text(warningMessage)
+                }
                 GroupBox {
                     Group {
                         Text("Username: ")
@@ -53,24 +57,24 @@ struct LoginView: View {
                     
                 Spacer()
                 Button() {
+                    warningMessageShown = false
                     print("Login")
-                    buttonText = "Loading..."
+                    buttonText = "Logging in..."
                     APIService().createSession(username: username, password: password, callback: {success,statusCode,sessionId in
                         if success {
-                            session = sessionId!
-                            Alert(
-                                title:Text("Success!"),
-                                message: Text("Succesfully signed into your frii.site account"),
-                                dismissButton: .default(Text("Ok"))
-                            )
+                            session = sessionId
+                            buttonText = "Succesfully logged in"
+                            
                         } else {
-                            print(statusCode!)
+                            warningMessage = "Login failed with error code \(statusCode)"
+                            warningMessageShown = true
                         }
                     })
                 } label: {
                     Text(buttonText)
                         .frame(maxWidth: .infinity, maxHeight: 35)
                 }.buttonStyle(.borderedProminent)
+                    
                 
             }
             .padding()
