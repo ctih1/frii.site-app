@@ -24,11 +24,12 @@
         ],
         "versions": [{
             "version": "0.01",
-            "buildVersion": "8",
+            "buildVersion": "1",
             "date": "2025-04-05",
             "size": 268000,
             "localizedDescription": "Initial release",
-            "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.01/frii-site-app.ipa"
+            "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.01/frii-site-app.ipa",
+            "minOSVersion": "16.1"
         }],
         "appPermissions": {}
     }]
