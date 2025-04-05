@@ -22,7 +22,7 @@ struct LoginView: View {
                 
                 Spacer().frame(height: 50)
                 if warningMessageShown {
-                    Text(warningMessage)
+                    Text(warningMessage).foregroundColor(Color.red)
                 }
                 GroupBox {
                     Group {
@@ -42,11 +42,12 @@ struct LoginView: View {
                             } else {
                                 TextField("Password", text: $password)
                             }
+                            Spacer()
                             VStack {
                                 Toggle(isOn: $passwordShown, label: {
                                     Image(systemName: (passwordShown ? "eye.fill" : "eye.slash.fill"))
                                 })
-                            }.frame(maxWidth: 50)
+                            }.frame(width: 80)
                             
                         }
                     }.background(Color(.systemGray6))
@@ -54,7 +55,6 @@ struct LoginView: View {
                     
                 }
                 
-                    
                 Spacer()
                 Button() {
                     warningMessageShown = false
@@ -66,9 +66,20 @@ struct LoginView: View {
                             buttonText = "Succesfully logged in"
                             
                         } else {
-                            warningMessage = "Login failed with error code \(statusCode)"
+                            if statusCode == 403 || statusCode == 401 {
+                                warningMessage = "Invalid password"
+                            } else if statusCode == 404 {
+                                warningMessage = "Account not found"
+                            } else {
+                                warningMessage = "Login failed with error code \(statusCode)"
+                            }
+                            
                             warningMessageShown = true
+                            
+                            buttonText = "Login"
                         }
+                        
+                        
                     })
                 } label: {
                     Text(buttonText)

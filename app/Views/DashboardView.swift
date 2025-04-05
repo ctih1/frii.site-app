@@ -17,6 +17,28 @@ struct DashboardView: View {
     @State var showAlert = false
     @State var alertTitle: String = ""
     @State var alertDescription: String = ""
+    @State var loaded: Bool = false
+    
+    func getDomains() {
+        APIService().getUserDomains(callback: {success,statusCode,domainData in
+            loaded = true
+            if success {
+                domains = domainData
+            } else {
+                if statusCode == 460 {
+                    alertTitle = "Login failed"
+                    alertDescription = "Session expired. Please log back in."
+                    showAlert = true
+                    return
+                }
+                alertTitle = "Getting domains failed"
+                alertDescription = "Retrieving domains failed with error code \(statusCode)"
+                showAlert = true
+            }
+            
+        })
+    }
+    
     
     func notificationReminder() -> Alert {
         Alert(
@@ -29,22 +51,12 @@ struct DashboardView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Button("Retrieve domains") {
-                    APIService().getUserDomains(callback: {success,statusCode,domainData in
-                        if success {
-                            domains = domainData
-                        } else {
-                            if statusCode == 460 {
-                                alertTitle = "Login failed"
-                                alertDescription = "Session expired. Please log back in."
-                                showAlert = true
-                            }
-                        }
-                        
-                    })
+                if !loaded {
+                    Text("Loading domains...")
+                    ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }
-                
                 ForEach(domains.map {(k,v) in (k,v)}, id: \.0) {key,val in
+ 
                     GroupBox {
                         VStack {
                             HStack {
@@ -80,25 +92,7 @@ struct DashboardView: View {
                             }
                             
                             HStack {
-                                Spacer()
-                                Button("Save") {
-                                    APIService().modifyDomain(
-                                        domain: key,
-                                        value: val.ip,
-                                        type: val.type
-                                    ) { success, statusCode in
-                                        if success {
-                                            alertTitle = "Success!"
-                                            alertDescription = "Succesfully modified domain"
-                                            showAlert = true
-                                        } else {
-                                            alertTitle = "Failed to modify domain!"
-                                            alertDescription = "Modifying domain resulted in error code \(statusCode)"
-                                            showAlert = true
-                                        }
-                                    }
-                                }.buttonStyle(.borderedProminent)
-                                Button("Delete", role: .destructive) {
+                                Button(role: .destructive) {
                                     APIService().deleteDomain(domain: key) { success, statusCode in
                                         
                                         if success {
@@ -114,7 +108,34 @@ struct DashboardView: View {
                                         }
                                     }
                                     
+                                } label: {
+                                    Image(systemName: "bin.xmark")
+                                    Text("Delete")
                                 }.buttonStyle(.borderedProminent)
+                                
+                                Spacer()
+                                
+                                Button() {
+                                    APIService().modifyDomain(
+                                        domain: key,
+                                        value: val.ip,
+                                        type: val.type
+                                    ) { success, statusCode in
+                                        if success {
+                                            alertTitle = "Success!"
+                                            alertDescription = "Succesfully modified domain"
+                                            showAlert = true
+                                        } else {
+                                            alertTitle = "Failed to modify domain!"
+                                            alertDescription = "Modifying domain resulted in error code \(statusCode)"
+                                            showAlert = true
+                                        }
+                                    }
+                                } label: {
+                                    Image(systemName: "doc")
+                                    Text("Save")
+                                }.buttonStyle(.borderedProminent)
+                                
                             }
                         }
                         
@@ -122,7 +143,11 @@ struct DashboardView: View {
                 }
                 
             }
-        }.padding().navigationTitle("Dashboard").alert(isPresented: self.$showAlert, content: { self.notificationReminder() })
+        }
+        .padding()
+        .navigationTitle("Dashboard")
+        .alert(isPresented: self.$showAlert, content: { self.notificationReminder() })
+        .onAppear { getDomains() }
     }
 }
 

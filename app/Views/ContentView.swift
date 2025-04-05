@@ -25,7 +25,7 @@ struct ContentView: View {
             VStack {
                 NavigationLink(destination: LoginView()) {
                     Text("Sign in")
-                }.buttonStyle(.borderedProminent)
+                }.buttonStyle(.bordered)
                 
                 NavigationLink(destination: DashboardView()) {
                     Text("Dashboard")

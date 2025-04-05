@@ -49,19 +49,29 @@ class APIService {
         let usernameHash:String = SHA256.hash(data: Data(username.utf8)).map { String(format: "%02hhx", $0) }.joined()
         let passwordHash:String = SHA256.hash(data: Data(password.utf8)).map { String(format: "%02hhx", $0) }.joined()
         
-        let loginToken: String = "\(usernameHash)|\(passwordHash)"
+        let loginAuth: String = "\(usernameHash)|\(passwordHash)"
+        
+        loginToken = loginAuth
         
         let url = URL(string: serverURL + "/login")!
         
         var request = URLRequest(url: url)
         
-        request.setValue(loginToken, forHTTPHeaderField: "x-auth-request")
+        request.setValue(loginAuth, forHTTPHeaderField: "x-auth-request")
         request.httpMethod = "POST"
         
         
         sendRequest(req: request) { success, statusCode, data in
-            let loginResponse:LoginResponse = try! JSONDecoder().decode(LoginResponse.self, from: data.data(using:.utf8)!)
-            callback(success,statusCode,loginResponse.authToken)
+            do {
+                let loginResponse:LoginResponse = try JSONDecoder().decode(LoginResponse.self, from: data.data(using:.utf8)!)
+                print(loginResponse.authToken)
+                callback(success,statusCode,loginResponse.authToken)
+                return
+            } catch let err {
+                print(err)
+                callback(success, statusCode, "")
+            }
+
         }
         
     }
