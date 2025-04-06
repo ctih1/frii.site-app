@@ -101,6 +101,21 @@ class APIService {
         }
     }
     
+    public func registerDomain(domain: String, value: String, type: String, callback: @escaping (Bool, Int) -> Void) {
+        let body = try! JSONEncoder().encode(DomainModifications(domain: domain, value: value, type: type))
+        
+        let url = URL(string: serverURL + "/domain/register")
+        var request = URLRequest(url:url!)
+        request.setValue(session, forHTTPHeaderField: "x-auth-token")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = body
+        request.httpMethod = "POST"
+        
+        sendRequest(req: request) { success, statusCode, _ in
+            callback(success,statusCode)
+        }
+    }
+    
     public func deleteDomain(domain: String, callback: @escaping (Bool, Int) -> Void) {
         let url = URL(string: serverURL + "/domain/delete?domain=\(domain)")
         var request = URLRequest(url:url!)
