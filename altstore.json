@@ -23,13 +23,14 @@
             "https://github.com/ctih1/frii.site-app/blob/main/screenshots/dashboard.png?raw=true"
         ],
         "versions": [
+            
             {
-                "version": "0.01",
-                "buildVersion": "1",
-                "date": "2025-04-05",
-                "size": 268000,
-                "localizedDescription": "Initial release",
-                "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.01/frii-site-app.ipa",
+                "version": "0.03",
+                "buildVersion": "3",
+                "date": "2025-04-06",
+                "size": 223000,
+                "localizedDescription": "Third release",
+                "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.03/frii-site-app.ipa",
                 "minOSVersion": "16.1"
             },
             {
@@ -42,14 +43,15 @@
                 "minOSVersion": "16.1"
             },
             {
-                "version": "0.03",
-                "buildVersion": "3",
-                "date": "2025-04-06",
-                "size": 223000,
-                "localizedDescription": "Third release",
-                "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.03/frii-site-app.ipa",
+                "version": "0.01",
+                "buildVersion": "1",
+                "date": "2025-04-05",
+                "size": 268000,
+                "localizedDescription": "Initial release",
+                "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.01/frii-site-app.ipa",
                 "minOSVersion": "16.1"
             }
+
         ],
         "appPermissions": {
             "entitlements": [],
