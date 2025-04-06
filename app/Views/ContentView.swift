@@ -11,6 +11,7 @@ struct ContentView: View {
     @State public var showAlert = false
     @State public var alertTitle: String = ""
     @State public var alertDescription: String = ""
+    @State private var signedIn: Bool = !session.isEmpty
     
     private func alertCreator() -> Alert {
         Alert(
@@ -21,21 +22,14 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                NavigationLink(destination: LoginView()) {
-                    Text("Sign in")
-                }.buttonStyle(.bordered)
-                
-                NavigationLink(destination: DashboardView()) {
-                    Text("Dashboard")
-                }.buttonStyle(.borderedProminent)
-                    
-            }.alert(isPresented: self.$showAlert, content: { self.alertCreator() })
-            .padding()
-            .navigationTitle("frii.site")
+        if signedIn {
+            DashboardView()
+        } else {
+            DashboardView()
         }
-
+        Button("Dashboard") {
+            
+        }
     }
 }
 

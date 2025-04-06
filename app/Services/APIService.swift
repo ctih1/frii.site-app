@@ -45,26 +45,17 @@ class APIService {
     }
     
     
-    public func createSession(username: String, password: String, callback: @escaping(Bool, Int, String) -> Void) {
-        let usernameHash:String = SHA256.hash(data: Data(username.utf8)).map { String(format: "%02hhx", $0) }.joined()
-        let passwordHash:String = SHA256.hash(data: Data(password.utf8)).map { String(format: "%02hhx", $0) }.joined()
-        
-        let loginAuth: String = "\(usernameHash)|\(passwordHash)"
-        
-        loginToken = loginAuth
-        
+    public func createSession(loginAuthToken: String, callback: @escaping(Bool, Int, String) -> Void) {
         let url = URL(string: serverURL + "/login")!
         
         var request = URLRequest(url: url)
         
-        request.setValue(loginAuth, forHTTPHeaderField: "x-auth-request")
+        request.setValue(loginAuthToken, forHTTPHeaderField: "x-auth-request")
         request.httpMethod = "POST"
-        
         
         sendRequest(req: request) { success, statusCode, data in
             do {
                 let loginResponse:LoginResponse = try JSONDecoder().decode(LoginResponse.self, from: data.data(using:.utf8)!)
-                print(loginResponse.authToken)
                 callback(success,statusCode,loginResponse.authToken)
                 return
             } catch let err {

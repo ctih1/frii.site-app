@@ -18,6 +18,9 @@ struct DashboardView: View {
     @State var alertTitle: String = ""
     @State var alertDescription: String = ""
     @State var loaded: Bool = false
+    @State var loadingDescription: String = "Loading domains..."
+    @State private var path = NavigationPath()
+    @State var needsRelogin: Bool = false
     
     func getDomains() {
         APIService().getUserDomains(callback: {success,statusCode,domainData in
@@ -26,9 +29,11 @@ struct DashboardView: View {
                 domains = domainData
             } else {
                 if statusCode == 460 {
+                    session = ""
                     alertTitle = "Login failed"
-                    alertDescription = "Session expired. Please log back in."
+                    alertDescription = "Your session has expired. Please log back in."
                     showAlert = true
+                    needsRelogin = true
                     return
                 }
                 alertTitle = "Getting domains failed"
@@ -49,10 +54,13 @@ struct DashboardView: View {
     }
     
     var body: some View {
+        if needsRelogin {
+            LoginView()
+        }
         ScrollView {
             VStack {
                 if !loaded {
-                    Text("Loading domains...")
+                    Text(loadingDescription)
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }
                 ForEach(domains.map {(k,v) in (k,v)}, id: \.0) {key,val in
@@ -148,6 +156,7 @@ struct DashboardView: View {
         .navigationTitle("Dashboard")
         .alert(isPresented: self.$showAlert, content: { self.notificationReminder() })
         .onAppear { getDomains() }
+        
     }
 }
 
