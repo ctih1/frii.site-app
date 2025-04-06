@@ -45,7 +45,7 @@ struct DashboardView: View {
     }
     
     
-    func notificationReminder() -> Alert {
+    func alertCreator() -> Alert {
         Alert(
             title: Text(alertTitle),
             message: Text(alertDescription),
@@ -56,107 +56,105 @@ struct DashboardView: View {
     var body: some View {
         if needsRelogin {
             LoginView()
-        }
-        ScrollView {
-            VStack {
-                if !loaded {
-                    Text(loadingDescription)
-                    ProgressView().progressViewStyle(CircularProgressViewStyle())
-                }
-                ForEach(domains.map {(k,v) in (k,v)}, id: \.0) {key,val in
- 
-                    GroupBox {
-                        VStack {
-                            HStack {
-                                Image(systemName: "globe")
-                                Text(key + ".frii.site").font(.headline)
-                                Spacer()
-                            }
-                            
-                            HStack {
-                                TextField(
-                                    "Content",
-                                    text: Binding(
-                                        get: { val.ip },
-                                        set: { domains[key]!.ip = $0 }
-                                    )
-                                ).textFieldStyle(.roundedBorder)
-                                    .autocorrectionDisabled(true)
-                                    .autocapitalization(.none)
-                                Spacer()
-                                Picker(
-                                    "Type",
-                                    selection: Binding(
-                                        get: { val.type },
-                                        set: { domains[key]!.type = $0 }
-                                    )
-                                ) {
-                                    Text("A").tag("A")
-                                    Text("CNAME").tag("CNAME")
-                                    Text("NS").tag("NS")
-                                    Text("TXT").tag("TXT")
-                                }.pickerStyle(.menu)
-                                    .buttonStyle(.bordered)
-                            }
-                            
-                            HStack {
-                                Button(role: .destructive) {
-                                    APIService().deleteDomain(domain: key) { success, statusCode in
-                                        
-                                        if success {
-                                            alertTitle = "Success!"
-                                            alertDescription = "Succesfully deleted domain"
-                                            showAlert = true
+        } else {
+            ScrollView {
+                VStack {
+                    if !loaded {
+                        Text(loadingDescription)
+                        ProgressView().progressViewStyle(CircularProgressViewStyle())
+                    }
+                    ForEach(domains.map {(k,v) in (k,v)}, id: \.0) {key,val in
+                        
+                        GroupBox {
+                            VStack {
+                                HStack {
+                                    Image(systemName: "globe")
+                                    Text(key + ".frii.site").font(.headline)
+                                    Spacer()
+                                }
+                                
+                                HStack {
+                                    TextField(
+                                        "Content",
+                                        text: Binding(
+                                            get: { val.ip },
+                                            set: { domains[key]!.ip = $0 }
+                                        )
+                                    ).textFieldStyle(.roundedBorder)
+                                        .autocorrectionDisabled(true)
+                                        .autocapitalization(.none)
+                                    Spacer()
+                                    Picker(
+                                        "Type",
+                                        selection: Binding(
+                                            get: { val.type },
+                                            set: { domains[key]!.type = $0 }
+                                        )
+                                    ) {
+                                        Text("A").tag("A")
+                                        Text("CNAME").tag("CNAME")
+                                        Text("NS").tag("NS")
+                                        Text("TXT").tag("TXT")
+                                    }.pickerStyle(.menu)
+                                        .buttonStyle(.bordered)
+                                }
+                                
+                                HStack {
+                                    Button(role: .destructive) {
+                                        APIService().deleteDomain(domain: key) { success, statusCode in
                                             
-                                            domains = domains.filter({ $0.key != key})
-                                        } else {
-                                            alertTitle = "Failed to delete domain!"
-                                            alertDescription = "Deleting domain resulted in error code \(statusCode)"
-                                            showAlert = true
+                                            if success {
+                                                alertTitle = "Success!"
+                                                alertDescription = "Succesfully deleted domain"
+                                                showAlert = true
+                                                
+                                                domains = domains.filter({ $0.key != key})
+                                            } else {
+                                                alertTitle = "Failed to delete domain!"
+                                                alertDescription = "Deleting domain resulted in error code \(statusCode)"
+                                                showAlert = true
+                                            }
                                         }
-                                    }
+                                        
+                                    } label: {
+                                        Image(systemName: "bin.xmark")
+                                        Text("Delete")
+                                    }.buttonStyle(.borderedProminent)
                                     
-                                } label: {
-                                    Image(systemName: "bin.xmark")
-                                    Text("Delete")
-                                }.buttonStyle(.borderedProminent)
-                                
-                                Spacer()
-                                
-                                Button() {
-                                    APIService().modifyDomain(
-                                        domain: key,
-                                        value: val.ip,
-                                        type: val.type
-                                    ) { success, statusCode in
-                                        if success {
-                                            alertTitle = "Success!"
-                                            alertDescription = "Succesfully modified domain"
-                                            showAlert = true
-                                        } else {
-                                            alertTitle = "Failed to modify domain!"
-                                            alertDescription = "Modifying domain resulted in error code \(statusCode)"
-                                            showAlert = true
+                                    Spacer()
+                                    
+                                    Button() {
+                                        APIService().modifyDomain(
+                                            domain: key,
+                                            value: val.ip,
+                                            type: val.type
+                                        ) { success, statusCode in
+                                            if success {
+                                                alertTitle = "Success!"
+                                                alertDescription = "Succesfully modified domain"
+                                                showAlert = true
+                                            } else {
+                                                alertTitle = "Failed to modify domain!"
+                                                alertDescription = "Modifying domain resulted in error code \(statusCode)"
+                                                showAlert = true
+                                            }
                                         }
-                                    }
-                                } label: {
-                                    Image(systemName: "doc")
-                                    Text("Save")
-                                }.buttonStyle(.borderedProminent)
-                                
+                                    } label: {
+                                        Image(systemName: "doc")
+                                        Text("Save")
+                                    }.buttonStyle(.borderedProminent)
+                                }
                             }
                         }
-                        
                     }
                 }
-                
             }
+            .padding()
+            .navigationTitle("Dashboard")
+            .alert(isPresented: self.$showAlert, content: { self.alertCreator() })
+            .onAppear { getDomains() }
+            
         }
-        .padding()
-        .navigationTitle("Dashboard")
-        .alert(isPresented: self.$showAlert, content: { self.notificationReminder() })
-        .onAppear { getDomains() }
-        
     }
 }
 

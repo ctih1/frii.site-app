@@ -111,5 +111,16 @@ class APIService {
             callback(success,statusCode)
         }
     }
+    
+    public func logout(callback: @escaping (Bool, Int) -> Void) {
+        let url = URL(string: serverURL + "/logout")
+        var request = URLRequest(url:url!)
+        request.setValue(session, forHTTPHeaderField: "x-auth-token")
+        request.httpMethod = "PATCH"
+        
+        sendRequest(req: request) { success, statusCode, _ in
+            callback(success,statusCode)
+        }
+    }
 }
 

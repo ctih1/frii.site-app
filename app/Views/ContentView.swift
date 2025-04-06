@@ -11,7 +11,7 @@ struct ContentView: View {
     @State public var showAlert = false
     @State public var alertTitle: String = ""
     @State public var alertDescription: String = ""
-    @State private var signedIn: Bool = !session.isEmpty
+    @State private var signedIn: Bool = false;
     
     private func alertCreator() -> Alert {
         Alert(
@@ -21,15 +21,34 @@ struct ContentView: View {
         )
     }
     
+    
+    
     var body: some View {
-        if signedIn {
-            DashboardView()
-        } else {
-            DashboardView()
+        ZStack {
+            if signedIn {
+                DashboardView()
+            } else {
+                LoginView()
+            }
         }
-        Button("Dashboard") {
-            
+        .animation(.easeInOut, value: signedIn)
+        
+        .onAppear {
+            withAnimation(.easeIn(duration: 1.0)) {
+                signedIn = !session.isEmpty
+            }
         }
+        
+        HStack {
+            Spacer()
+            NavigationLink(destination: AccountView()) {
+                Image(systemName: "person")
+                Text("Account")
+            }
+            Spacer()
+        }
+
+        
     }
 }
 
