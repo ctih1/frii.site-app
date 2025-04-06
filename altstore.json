@@ -23,7 +23,15 @@
             "https://github.com/ctih1/frii.site-app/blob/main/screenshots/dashboard.png?raw=true"
         ],
         "versions": [
-            
+            {
+                "version": "0.04",
+                "buildVersion": "4",
+                "date": "2025-04-06",
+                "size": 223000,
+                "localizedDescription": "Fourth release",
+                "downloadURL": "https://github.com/ctih1/frii.site-app/releases/download/v0.04/frii-site-app.ipa",
+                "minOSVersion": "16.1"
+            },
             {
                 "version": "0.03",
                 "buildVersion": "3",
