@@ -87,6 +87,12 @@ struct DashboardView: View {
                                 
                             }
                             
+                            TextField(text: $domainRegisterValue, label: {
+                                Text(domainRegisterValueExample)
+                            }).textFieldStyle(.roundedBorder)
+                                .autocapitalization(.none)
+                                .autocorrectionDisabled(true)
+                            
                             HStack {
                                 Picker("Type",selection: $domainRegisterType) {
                                     Text("A").tag("A")
@@ -99,11 +105,7 @@ struct DashboardView: View {
                                         domainRegisterValueExample = domainValueExamples[newValue] ?? domainValueExamples["A"]!
                                     }
                                 
-                                TextField(text: $domainRegisterValue, label: {
-                                    Text(domainRegisterValueExample)
-                                }).textFieldStyle(.roundedBorder)
-                                    .autocapitalization(.none)
-                                    .autocorrectionDisabled(true)
+
                                 
                                 Button() {
                                     if domainRegisterValue.isEmpty || domainRegisterName.isEmpty {
